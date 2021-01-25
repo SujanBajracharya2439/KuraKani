@@ -16,16 +16,11 @@ function GetResult(){
                 results += '<div class="col-md-12 news-post">';
                 results += '<div class="row">';
                 
-                results += '<a href='+data.response.results[i].webUrl+' target="_blank" style = "color:#4aa1f3 text-decoration: none;">';
-                results += '<div class="col md-2">';
+                results += '<a href='+data.response.results[i].webUrl+' target="_blank">';
+                results += '<div>';
 
                 results += '<img src='+data.response.results[i].fields.thumbnail+'" />'
-                results += '</div>'
-
-                results += '<div class="col-md-18">';
-                results +='<h4>"'+data.response.results[i].webPublicationDates+'"</h4>';
-                results +='<h3>"'+data.response.results[i].fields.headline+'"</h3>';
-                results +='</div>';
+                results += '</div>';
                 
                 results += '</a>';
                 results += '</div>';
