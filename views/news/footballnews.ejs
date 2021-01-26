@@ -1,41 +1,76 @@
-$(document).ready(function(){
-  LoadData('.paginate');
-  return GetResult(); 
-});
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-function GetResult(){
-  $.ajax({
-      url: 'http://content.guardianapis.com/football?page-size=2&order-by=newest&show-fields=all&api-key=8b435306-1b3a-480d-b96d-32b7d969507a',
-      type: 'GET',
-      dataType: 'json',
-      success: function(data){
-          var results = '';
-          
-          $.each(data.response.results, function(i){
-            
-              results += '<div class="col-md-12 news-post">';
-              results += '<div class="row">';
-              
-              results += '<a href='+data.response.results[i].webUrl+' target="_blank" style = "color:#4aa1f3 text-decoration: none;">';
-              results += '<div class="col md-2">';
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/uploads/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/news.css">
+    
+</head>
+<body>
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/home">KuraKani</a>
+    </div>
 
-              results += '<img src='+data.response.results[i].fields.thumbnail+' class="img-responsive"/>'
-              results += '</div>'
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right" id="reload">
+         <li><a href="/members">Members</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= user.username%> <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/settings/profile"><span class="fa fa-user"> Profile</span></a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/logout"><span class="fa fa-sign-out"></span> Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+  
+<div class="col-md-12">
+   <input type="hidden" id="name-user" value="<%= user.username %>">
+   <input type="hidden" id="name-image" value="<%= user.userImage %>">
 
-              results += '<div class="col-md-10">';
-              results +='<h4 class="news-date">'+new Date(Date.parse(data.response.results[i].webPublicationsDate)).toDateString()+'</h4>';
-              results +='<h3>'+data.response.results[i].fields.headline+'</h3>';
-              results += '<p class="news-text">'+data.response.results[i].fields.webTitle+'</p>';
-              results +='</div>';
-              
-              results += '</a>';
-              results += '</div>';
-              results += '</div>';
-             
-          });
-          
-          $('#newsResults').html(results);
-        
-      }
-  })
-}
+   <div class="col-md-12">
+       <h1 class="news-mainhead">Latest News</h1>   
+   </div>
+
+   <div class="col-md-12 col-sm-12 news-bottom" id="newResults">
+
+    <div class="col-md-12">
+      <button id="loadMore" class="btn col-xs-12">Load More</button>
+
+      <p id="top">
+        <a href="#top" id="linkTop">Back to top</a>
+      </p>
+    </div>
+
+   </div>
+    
+</div>
+
+  
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> 
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/group/sendrequest.js"></script> 
+<script src="/js/home.js"></script>
+<script src="/js/global.js"></script>
+<script src="/js/news/footballnews.js"></script>
+</body>
+</html> 

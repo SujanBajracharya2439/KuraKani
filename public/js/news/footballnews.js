@@ -12,15 +12,21 @@ function GetResult(){
             var results = '';
             
             $.each(data.response.results, function(i){
-              
+                results += '<div form class="paginate">';
                 results += '<div class="col-md-12 news-post">';
                 results += '<div class="row">';
                 
-                results += '<a href='+data.response.results[i].webUrl+' target="_blank">';
-                results += '<div>';
+                results += '<a href='+data.response.results[i].webUrl+' target="_blank" style = "color:#4aa1f3 text-decoration: none;">';
+                results += '<div class="col md-2">';
 
-                results += '<img src='+data.response.results[i].fields.thumbnail+'" />'
-                results += '</div>';
+                results += '<img src='+data.response.results[i].fields.thumbnail+' class="img-responsive"/>'
+                results += '</div>'
+
+                results += '<div class="col-md-10">';
+                results +='<h4 class="news-date">'+new Date(Date.parse(data.response.results[i].webPublicationsDate)).toDateString()+'</h4>';
+                results +='<h3>'+data.response.results[i].fields.headline+'</h3>';
+                results += '<p class="news-text">'+data.response.results[i].fields.webTitle+'</p>';
+                results +='</div>';
                 
                 results += '</a>';
                 results += '</div>';
@@ -32,4 +38,8 @@ function GetResult(){
           
         }
     })
+}
+
+function LoadData(divClass){
+
 }
