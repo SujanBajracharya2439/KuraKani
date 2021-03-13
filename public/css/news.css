@@ -5,7 +5,7 @@
 }
 
 .news-bottom{
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .news-post{
@@ -34,4 +34,8 @@
     font-size: 18px;
     background-color: #4aa1f3;
     color: #fff;
+}
+
+.paginate{
+    display: none;
 }

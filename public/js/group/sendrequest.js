@@ -9,7 +9,7 @@ $(document).ready(function(){
             sender: sender
         }
         socket.emit('joinRequest', params, function(){
-            console.log('Joined');
+            // console.log('Joined');
         });
     });
 

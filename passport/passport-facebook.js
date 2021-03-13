@@ -3,7 +3,6 @@
 const passport = require('passport');
 const User = require('../models/user');
 const FacebookStrategy = require('passport-facebook').Strategy;
-const secret = require('../secret/secretFile');
 
 passport.serializeUser((user, done) => {
     done(null, user.id);
@@ -16,8 +15,8 @@ passport.deserializeUser((id, done) => {
 });
 
 passport.use(new FacebookStrategy({
-    clientID: process.env.FB_CLIENT_ID,
-    clientSecret: process.env.FB_CLIENT_SECRET,
+    clientID: 'qwqeweqwe',
+    clientSecret: 'qweqweqweqw',
     profileFields: ['email', 'displayName', 'photos'],
     callbackURL: 'http://localhost:3000/auth/facebook/callback',
     passReqToCallback: true
@@ -25,7 +24,7 @@ passport.use(new FacebookStrategy({
 }, (req, token, refreshToken, profile, done) => {
     
     User.findOne({facebook:profile.id}, (err, user) => {
-       if(err){
+       if(err){a
            return done(err);
        }
         
@@ -46,3 +45,34 @@ passport.use(new FacebookStrategy({
         }
     })
 }));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

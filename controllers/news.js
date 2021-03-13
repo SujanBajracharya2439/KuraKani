@@ -1,10 +1,11 @@
-module.exports =function(){
-    return{
+module.exports = function(){
+    return {
         SetRouting: function(router){
-            router.get('/latest-football-news',this.footballNews);
+            router.get('/latest-football-news', this.footbalNews);
         },
-        footballNews: function (req, res) {
-            res.render('news/footballnews',{title:'KuraKani- Latest News', user:req.user});
+        
+        footbalNews: function(req, res){
+            res.render('news/footballnews', {title: 'KuraKani - Latest News', user: req.user});
         }
-    }   
+    }
 }

@@ -3,7 +3,6 @@ module.exports = function(async, Users, Message, FriendResult){
         SetRouting: function(router){
             router.get('/settings/interests', this.getInterestPage);
             router.post('/settings/interests', this.postInterestPage);
-            
         },
         
         getInterestPage: function(req, res){
@@ -56,75 +55,91 @@ module.exports = function(async, Users, Message, FriendResult){
             });
         },
         
-        postInterestPage: function (req, res) {
-            
+        postInterestPage: function(req, res){
             FriendResult.PostRequest(req, res, '/settings/interests');
-
+            
             async.parallel([
-                function (callback){
-                    if(req.body.favClub){
-                        Users.update({
-                            '_id': req.user._id,
-                            'favClub.clubName': {$ne: req.body.favClub}
-                        },
-                        {
-                            $push: {favClub:{
+               function(callback){
+                   if(req.body.favClub){
+                       Users.updateOne({
+                           '_id':req.user._id,
+                           'favClub.clubName': {$ne: req.body.favClub}
+                       },
+                       {
+                            $push: {favClub: {
                                 clubName: req.body.favClub
-                            }}
-                        },(err, result1)=>{
-                            // console.log(result1);
-                            callback(err, result1);
-                        })
-                    }
-                },
-            ], (err, results )=>{
-                res.redirect('/settings/interests');
-            });
-
-            async.parallel([
-                function (callback){
-                    if(req.body.favPlayer){
-                        Users.update({
-                            '_id': req.user._id,
-                            'favPlayer.playerName': {$ne: req.body.favPlayer}
-                        },
-                        {
-                            $push: {favPlayer:{
-                                playerName: req.body.favPlayer
-                            }}
-                        },(err, result2)=>{
-                            // console.log(result2);
-                            callback(err, result2);
-                        })
-                    }
-                }
-            ], (err, results )=>{
+                            }}    
+                       }, (err, result1) => {
+                           callback(err, result1);
+                       })
+                   }
+               },
+            ], (err, results) => {
                 res.redirect('/settings/interests');
             });
             
             async.parallel([
-                function (callback){
-                    if(req.body.nationalTeam){
-                        Users.update({
-                            '_id': req.user._id,
-                            'favNationalPlayer.teamName': {$ne: req.body.nationalTeam}
-                        },
-                        {
-                            $push: {favNationalPlayer:{
-                                teamName: req.body.nationalTeam
-                            }}
-                        },(err, result3)=>{
-                            // console.log(result3);
-                            callback(err, result3);
-                        })
-                    }
+               function(callback){
+                   if(req.body.favPlayer){
+                       Users.updateOne({
+                           '_id':req.user._id,
+                           'favPlayer.playerName': {$ne: req.body.favPlayer}
+                       },
+                       {
+                            $push: {favPlayer: {
+                                playerName: req.body.favPlayer
+                            }}    
+                       }, (err, result2) => {
+                           callback(err, result2);
+                       })
+                   }
                 }
-            ], (err, results )=>{
+            ], (err, results) => {
+                res.redirect('/settings/interests');
+            });
+            
+            async.parallel([
+               function(callback){
+                   if(req.body.nationalTeam){
+                       Users.updateOne({
+                           '_id':req.user._id,
+                           'favNationalTeam.teamName': {$ne: req.body.nationalTeam}
+                       },
+                       {
+                            $push: {favNationalTeam: {
+                                teamName: req.body.nationalTeam
+                            }}    
+                       }, (err, result3) => {
+                           callback(err, result3);
+                       })
+                   }
+                }
+            ], (err, results) => {
                 res.redirect('/settings/interests');
             });
         }
-           
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

@@ -1,5 +1,3 @@
-
-
 module.exports = function(formidable, Club, aws){
     return{
         SetRouting: function(router){
@@ -25,7 +23,20 @@ module.exports = function(formidable, Club, aws){
         },
 
         uploadFile: function(req, res){
+            const form = new formidable.IncomingForm();
+            
+            form.on('file', (field, file) => {
 
+            });
+            
+            form.on('error', (err) => {
+            });
+            
+            form.on('end', () => {
+                
+            });
+            
+            form.parse(req);
         }
     }
 } 
